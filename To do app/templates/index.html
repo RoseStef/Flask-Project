@@ -31,6 +31,7 @@
             <p>Task Incomplete. <a href = "/update/{{todo.id}}"> Mark as complete?</a></p>
         {% else %}
             <p>Task Complete!</p>
+            <a href="/update/{{ todo.id }}" class="toggle-btn">Mark as Incomplete</a>
         {% endif%}
     </div>
     <p><a href ="/delete/{{todo.id}}"> Delete Task?</a></p>
