@@ -21,6 +21,7 @@
       {% for todo in todo_list %}
       <div>
         <p>{{ todo.id }} : {{ todo.task }}</p>
+        <p>Task established on {{ todo.date_time.strftime('%Y-%m-%d %H:%M:%S') }}</p> #Shows the date and time after the task has been submitted to database
         {% endfor %}
       </div>
       <hr />

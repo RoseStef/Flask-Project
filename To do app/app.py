@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func #adds usability for func.now() line 16
 
 # new instance of the Flask class
 app = Flask(__name__)
@@ -12,6 +13,7 @@ class Todo(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     task = db.Column(db.String(300), unique = True)
     complete = db.Column(db.Boolean, default = False) 
+    date_time = db.Column(db.DateTime, default=func.now()) #Sets date and time for created tasks automatically. Displayed time in index.html line 24. 
 
 @app.route("/")
 def home():
