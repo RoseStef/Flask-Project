@@ -21,7 +21,7 @@
 
       {% for todo in todo_list %}
       <div>
-        <p>{{ todo.id }} : {{ todo.task }} : {{todo.complete}}</p>
+        <p>{{ todo.id }} : {{ todo.task }} >  {{ 'Complete' if todo.complete else 'Incomplete'}} : Task submitted on {{ todo.time_and_date.strftime('%d-%m-%y %H:%M:%S') }}</p> <!-- strftime formats the time_and_date as a readable timestamp and therefore outputs the time and date of the created task. Next, the  'Complete' if todo.complete else 'Incomplete' conditional checks True or False based on the toggle between if task is either complete or incomplete and outputs "Complete" if task is complete and "Incomplete" if task has not been completed instead of True or False, which is a more readable, human friendly approach.  -->
         {% if todo.complete == False %}
             <p>Task Incomplete. <a href = "/update/{{todo.id}}"> Mark as complete?</a></p>
         {% else %}
@@ -30,6 +30,7 @@
         {% endif%}
     </div>
     <p><a href ="/delete/{{todo.id}}"> Delete Task?</a></p>
+    <p> <a href="/edit/{{todo.id}}"> Edit Task Details?</a></p> <!-- A link that allows to edit task details. If the user clicks on the link, a form in other window appears that appends the changes to the database and then is outputs these changes on the Todo list display.-->
         {% endfor %} 
     <hr />
   </body>
