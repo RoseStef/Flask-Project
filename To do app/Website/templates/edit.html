@@ -19,11 +19,19 @@
         value="{{ todo.task }}"
         required
       />
-      <!--Prefills the currently saved task text-->
+      <label for="category">Category:</label>
+      <select name="category" id="category">
+        <option value="Programming" {% if todo.category =="Programming"%}selected{% endif %}>Programming</option>
+        <option value="Home Tasks" {% if todo.category =="Home Tasks" %}selected{% endif %}>Home Tasks</option>
+        <option value="Daily Tasks" {% if todo.category =="Daily Tasks" %}selected{% endif %}>Daily Tasks</option>      
+        <option value="Other" {% if todo.category =="Other" %}selected{% endif %}>Other</option>
+      </select>
+      <input type="hidden" name="origin_category" value="{{category}}" />
+      <!--Prefills the currently saved task in the form and inputs it to the specific category-->
       <button type="submit">Save Changes</button>
       <!--Button that allows to save edited task changes to the database-->
     </form>
-    <a href="/">Back to Home</a>
+    <a href="/"> <button type="button">Back to Home</button></a>
     <!-- This Link allows to go back to homepage without editing the task. If user chooses to edit the prefilled text, once user presses "Save Changes" it redirects user back to home page straight away without this link.-->
   </body>
 </html>

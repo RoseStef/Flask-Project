@@ -7,31 +7,86 @@
   </head>
 
   <body>
+    <h1>To Do List</h1>
+    <!-- Navigation bar for separate categories-->
     <div>
-      <h1>To Do List</h1>
-
-      <form action="/add" method="post">
-        <div>
-          <label>Todo task</label>
-          <input type="text" name="task" placeholder="Enter a Task" />
-          <button type="submit">Add a Task</button>
-        </div>
-
-      <hr />
-
-      {% for todo in todo_list %}
-      <div>
-        <p>{{ todo.id }} : {{ todo.task }} >  {{ 'Complete' if todo.complete else 'Incomplete'}} : Task submitted on {{ todo.time_and_date.strftime('%d-%m-%y %H:%M:%S') }}</p> <!-- strftime formats the time_and_date as a readable timestamp and therefore outputs the time and date of the created task. Next, the  'Complete' if todo.complete else 'Incomplete' conditional checks True or False based on the toggle between if task is either complete or incomplete and outputs "Complete" if task is complete and "Incomplete" if task has not been completed instead of True or False, which is a more readable, human friendly approach.  -->
-        {% if todo.complete == False %}
-            <p>Task Incomplete. <a href = "/update/{{todo.id}}"> Mark as complete?</a></p>
-        {% else %}
-            <p>Task Complete!</p>
-            <a href="/update/{{ todo.id }}" class="toggle-btn">Mark as Incomplete</a>
-        {% endif%}
+      <nav>
+        <form action="/" method="GET" style="display: inline">
+          <button type="submit">All Tasks</button>
+        </form>
+        <form
+          action="/category/Programming"
+          method="GET"
+          style="display: inline"
+        >
+          <button type="submit">Programming</button>
+        </form>
+        <form
+          action="/category/Home Tasks"
+          method="GET"
+          style="display: inline"
+        >
+          <button type="submit">Home Tasks</button>
+        </form>
+        <form
+          action="/category/Daily Tasks"
+          method="GET"
+          style="display: inline"
+        >
+          <button type="submit">Daily Tasks</button>
+        </form>
+        <form action="/category/Other" method="GET" style="display: inline">
+          <button type="submit">Other</button>
+        </form>
+      </nav>
     </div>
-    <p><a href ="/delete/{{todo.id}}"> Delete Task?</a></p>
-    <p> <a href="/edit/{{todo.id}}"> Edit Task Details?</a></p> <!-- A link that allows to edit task details. If the user clicks on the link, a form in other window appears that appends the changes to the database and then is outputs these changes on the Todo list display.-->
-        {% endfor %} 
+
+    <hr />
+    <form action="/add" method="post">
+      <div>
+        <label>Todo task</label>
+        <input type="text" name="task" placeholder="Enter a Task" />
+      </div>
+      <div>
+        <label>Category:</label>
+        <select name="category" required>
+          <option value="Programming">Programming</option>
+          <option value="Home Tasks">Home Tasks</option>
+          <option value="Daily Tasks">Daily Tasks</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <button type="submit">Add a Task</button>
+    </form>
+
+    <hr />
+    <!-- Following Displays all tasks-->
+    {% for todo in todo_list %}
+    <div>
+      <p>
+        {{ todo.id }} : {{ todo.task }} > {{ 'Complete' if todo.complete else
+        'Incomplete'}} : Task submitted on {{
+        todo.time_and_date.strftime('%d-%m-%y %H:%M:%S') }} : Category:
+        {{todo.category}}
+      </p>
+      <!-- strftime formats the time_and_date as a readable timestamp and therefore outputs the time and date of the created task. Next, the  'Complete' if todo.complete else 'Incomplete' conditional checks True or False based on the toggle between if task is either complete or incomplete and outputs "Complete" if task is complete and "Incomplete" if task has not been completed instead of True or False, which is a more readable, human friendly approach.  -->
+      <!--Form that marks the task complete/incomplete-->
+      <form action="/update/{{todo.id}}" method="POST" style="display: inline">
+        <button type="submit">
+          {{'Mark as Complete' if not todo.complete else 'Mark as Incomplete'}}
+        </button>
+      </form>
+      <!--Form that responds to task deletion and is represented as a button-->
+      <form action="/delete/{{todo.id}}" method="GET" style="display: inline">
+        <button type="submit">Delete Task?</button>
+      </form>
+      <!--Form that responds to editing a task as a button. Name value passes to GET request for the edit route.-->
+      <form action="/edit/{{todo.id}}" method="GET" style="display: inline">
+        <input type="hidden" name="category" value="{{todo.category}}" />
+        <button type="submit">Edit Task?</button>
+      </form>
+    </div>
+    {% endfor %}
     <hr />
   </body>
 </html>

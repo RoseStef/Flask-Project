@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Category: {{category_name}}</title>
+  </head>
+
+  <body>
+    <h1>Category: {{category_name}}</h1>
+    <div>
+      <!--Navigation Bar for task categories-->
+      <nav>
+        <form action="/" method="GET" style="display: inline">
+          <button type="submit">All Tasks</button>
+        </form>
+        <form
+          action="/category/Programming"
+          method="GET"
+          style="display: inline"
+        >
+          <button type="submit">Programming</button>
+        </form>
+        <form
+          action="/category/Home Tasks"
+          method="GET"
+          style="display: inline"
+        >
+          <button type="submit">Home Tasks</button>
+        </form>
+        <form
+          action="/category/Daily Tasks"
+          method="GET"
+          style="display: inline"
+        >
+          <button type="submit">Daily Tasks</button>
+        </form>
+        <form action="/category/Other" method="GET" style="display: inline">
+          <button type="submit">Other</button>
+        </form>
+      </nav>
+    </div>
+    <hr />
+
+    <!-- For loop to display tasks in the selected category-->
+    {% for todo in todo_list %}
+    <div>
+      <p>
+        {{todo.id}} : {{todo.task}} : {{'Complete' if todo.complete else
+        'Incomplete'}} : Task submitted on
+        {{todo.time_and_date.strftime('%d-%m-%y %H:%M:%S')}}
+      </p>
+      <form
+        action="/update/{{todo.id}}?category={{category_name}}"
+        method="POST"
+      >
+        <!-- Form enables to toggle tasks without leaving the category page-->
+        <button type="submit">
+          {{'Mark as Incomplete' if todo.complete else 'Mark as Complete' }}
+        </button>
+        <!-- Button is the toggle action for tasks in the form-->
+      </form>
+      <!--Experimented with implementing buttons without the form elements-->
+      <a
+        href="/delete/{{todo.id}}?category={{category_name}}"
+        style="display: inline"
+      >
+        <button type="button">Delete Task?</button></a
+      >
+      <a
+        href="/edit/{{todo.id}}?category={{category_name}}"
+        style="display: inline"
+      >
+        <button type="button">Edit Task Details?</button>
+      </a>
+    </div>
+    {% else %}
+    <p>No tasks found!</p>
+    {% endfor %}
+  </body>
+</html>
