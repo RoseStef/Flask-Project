@@ -4,11 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Task</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',
+    filename='styles/stylesheet.css')}}">
   </head>
 
   <body>
     <!--Body inlcudes a simple form outside index.html to edit the selected task-->
-    <h1>Edit Task</h1>
+    <h1 class="todo_title">Edit Task</h1>
     <form action="/edit/{{ todo.id }}" method="POST">
       <!--Responds to the @my_view.route("/edit/<todo.id>") route for the specific task-->
       <label for="task">Edit Task:</label>

@@ -4,35 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Category: {{category_name}}</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{url_for('static',
+    filename='styles/stylesheet.css')}}"
+    />
   </head>
 
   <body>
-    <h1>Category: {{category_name}}</h1>
     <div>
       <!--Navigation Bar for task categories-->
-      <nav>
+      <nav class="Navbar">
         <form action="/" method="GET" style="display: inline">
           <button type="submit">All Tasks</button>
         </form>
-        <form
-          action="/category/Programming"
-          method="GET"
-          style="display: inline"
-        >
+        <form action="/category/Programming" method="GET">
           <button type="submit">Programming</button>
         </form>
-        <form
-          action="/category/Home Tasks"
-          method="GET"
-          style="display: inline"
-        >
+        <form action="/category/Home Tasks" method="GET">
           <button type="submit">Home Tasks</button>
         </form>
-        <form
-          action="/category/Daily Tasks"
-          method="GET"
-          style="display: inline"
-        >
+        <form action="/category/Daily Tasks" method="GET">
           <button type="submit">Daily Tasks</button>
         </form>
         <form action="/category/Other" method="GET" style="display: inline">
@@ -40,17 +33,20 @@
         </form>
       </nav>
     </div>
+    <h1 class="todo_title">Category: {{category_name}}</h1>
     <hr />
 
     <!-- For loop to display tasks in the selected category-->
     {% for todo in todo_list %}
-    <div>
+    <div class="todo-table">
       <p>
         {{todo.id}} : {{todo.task}} : {{'Complete' if todo.complete else
         'Incomplete'}} : Task submitted on
         {{todo.time_and_date.strftime('%d-%m-%y %H:%M:%S')}}
       </p>
       <form
+        class="completion"
+        id="specific-category"
         action="/update/{{todo.id}}?category={{category_name}}"
         method="POST"
       >
@@ -63,14 +59,11 @@
       <!--Experimented with implementing buttons without the form elements-->
       <a
         href="/delete/{{todo.id}}?category={{category_name}}"
-        style="display: inline"
+        class="to-delete"
       >
         <button type="button">Delete Task?</button></a
       >
-      <a
-        href="/edit/{{todo.id}}?category={{category_name}}"
-        style="display: inline"
-      >
+      <a href="/edit/{{todo.id}}?category={{category_name}}" class="to-edit">
         <button type="button">Edit Task Details?</button>
       </a>
     </div>

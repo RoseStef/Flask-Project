@@ -4,12 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo App</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{url_for('static',
+    filename='styles/stylesheet.css')}}"
+    />
   </head>
 
   <body>
-    <h1>To Do List</h1>
+    <!--Identification for CSS-->
+
     <!-- Navigation bar for separate categories-->
-    <div>
+    <div class="Navbar">
       <nav>
         <form action="/" method="GET" style="display: inline">
           <button type="submit">All Tasks</button>
@@ -40,15 +47,17 @@
         </form>
       </nav>
     </div>
-
+    <h1 class="todo_title">To Do List</h1>
     <hr />
-    <form action="/add" method="post">
-      <div>
-        <label>Todo task</label>
+    <form action="/add" method="post" class="todo-form">
+      <!--Included a class for CSS-->
+      <div class="input-field">
+        <label for="task">Todo task</label>
         <input type="text" name="task" placeholder="Enter a Task" />
       </div>
-      <div>
-        <label>Category:</label>
+
+      <div class="category-field">
+        <label for="category">Category:</label>
         <select name="category" required>
           <option value="Programming">Programming</option>
           <option value="Home Tasks">Home Tasks</option>
@@ -62,7 +71,7 @@
     <hr />
     <!-- Following Displays all tasks-->
     {% for todo in todo_list %}
-    <div>
+    <div class="todo-table" id="category-specific">
       <p>
         {{ todo.id }} : {{ todo.task }} > {{ 'Complete' if todo.complete else
         'Incomplete'}} : Task submitted on {{
@@ -71,17 +80,32 @@
       </p>
       <!-- strftime formats the time_and_date as a readable timestamp and therefore outputs the time and date of the created task. Next, the  'Complete' if todo.complete else 'Incomplete' conditional checks True or False based on the toggle between if task is either complete or incomplete and outputs "Complete" if task is complete and "Incomplete" if task has not been completed instead of True or False, which is a more readable, human friendly approach.  -->
       <!--Form that marks the task complete/incomplete-->
-      <form action="/update/{{todo.id}}" method="POST" style="display: inline">
+      <form
+        class="completion"
+        action="/update/{{todo.id}}"
+        method="POST"
+        style="display: inline"
+      >
         <button type="submit">
           {{'Mark as Complete' if not todo.complete else 'Mark as Incomplete'}}
         </button>
       </form>
       <!--Form that responds to task deletion and is represented as a button-->
-      <form action="/delete/{{todo.id}}" method="GET" style="display: inline">
+      <form
+        class="to-delete"
+        action="/delete/{{todo.id}}"
+        method="GET"
+        style="display: inline"
+      >
         <button type="submit">Delete Task?</button>
       </form>
       <!--Form that responds to editing a task as a button. Name value passes to GET request for the edit route.-->
-      <form action="/edit/{{todo.id}}" method="GET" style="display: inline">
+      <form
+        class="to-edit"
+        action="/edit/{{todo.id}}"
+        method="GET"
+        style="display: inline"
+      >
         <input type="hidden" name="category" value="{{todo.category}}" />
         <button type="submit">Edit Task?</button>
       </form>

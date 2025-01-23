@@ -1,0 +1,142 @@
+/*I have chosen to start from the navigation bar in the index.html file*/
+/*Center navbar horizontally, justify and align items in the center with a margin off top 20 pixels.*/
+.Navbar {
+  display: flex; /*Flexbox layout*/
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/*Styling of the buttons*/
+.Navbar button {
+  width: 95px;
+  height: 60px;
+  border: solid;
+  margin: 0 15px; /*Space between buttons*/
+  border-radius: 20px; /*Rounds the buttons*/
+  background-color: beige; /*Button color*/
+  color: black; /*Font and border color*/
+  cursor: pointer; /*Changes cursor to hand pointer*/
+  font-family: monospace;
+}
+
+.Navbar button:hover {
+  background-color: goldenrod; /*Changes color when hovering over*/
+  color: brown; /* Changes font and border color when hovering over*/
+}
+
+/*Now that the buttons have been somewhat styled, the To Do List header comes second. I simply wanted to justify and align header to center, increase the font size and have a space from the bottom with margin of 20 pixels.*/
+.todo_title {
+  /* The # targets the ID instead of class*/
+  font-size: 38px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/*Next, styling of the form*/
+.todo-form {
+  display: flex; /*Flexbox layout*/
+  flex-direction: row; /*Arranges children in a row*/
+  align-items: center; /*Arranges elements horizontally*/
+}
+
+/*Style for the input class*/
+.input-field,
+.category-field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /*Adds space below the input field*/
+}
+
+/*Style for the label*/
+.todo-form label {
+  font-size: 20px;
+  font-family: monospace;
+  margin-right: 5px;
+}
+
+/*Style for the input field*/
+.todo-form input[type="text"],
+.category-field select {
+  height: 40px;
+  font-size: 16px;
+  font-family: monospace;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+/*Style Add a Task button*/
+.todo-form button {
+  height: 40px;
+  width: 100px;
+  border-radius: 10px;
+  border: 1px solid black;
+  background-color: beige;
+  font-family: monospace;
+  cursor: pointer;
+}
+
+.todo-form button:hover {
+  background-color: goldenrod;
+  color: brown;
+}
+
+/*Styling of the saved tasks*/
+.todo-table {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start; /*Align items to the left*/
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  border: 1px solid black;
+  font-family: monospace;
+  font-size: 17px;
+  margin-bottom: 20px;
+}
+
+.completion button {
+  height: 35px;
+  width: 100px;
+  border-radius: 10px;
+  border: 1px solid black;
+  background-color: beige;
+  font-family: monospace;
+  cursor: pointer;
+}
+
+.completion button:hover {
+  background-color: goldenrod;
+  color: brown;
+}
+
+.to-delete button {
+  height: 35px;
+  width: 100px;
+  border-radius: 10px;
+  border: 1px solid black;
+  background-color: beige;
+  font-family: monospace;
+  cursor: pointer;
+}
+
+.to-delete button:hover {
+  background-color: goldenrod;
+  color: brown;
+}
+
+.to-edit button {
+  height: 35px;
+  width: 100px;
+  border-radius: 10px;
+  border: 1px solid black;
+  background-color: beige;
+  font-family: monospace;
+  cursor: pointer;
+}
+
+.to-edit button:hover {
+  background-color: goldenrod;
+  color: brown;
+}
