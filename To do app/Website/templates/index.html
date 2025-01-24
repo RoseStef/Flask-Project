@@ -14,7 +14,6 @@
 
   <body>
     <!--Identification for CSS-->
-
     <!-- Navigation bar for separate categories-->
     <div class="Navbar">
       <nav>
@@ -49,11 +48,20 @@
     </div>
     <h1 class="todo_title">To Do List</h1>
     <hr />
+
+    <!--Display the message from views.py based on a condition. If user has added a task successfully, its a success message, if not then an error message.-->
+    {% if message %} {% if message_type == "success" %}
+    <p id="success-message">{{ message }}</p>
+    {% elif message_type == "error" %}
+    <p id="error-handling">{{ message }}</p>
+    {% endif %} {% endif %}
+
     <form action="/add" method="post" class="todo-form">
       <!--Included a class for CSS-->
       <div class="input-field">
         <label for="task">Todo task</label>
-        <input type="text" name="task" placeholder="Enter a Task" />
+        <input type="text" name="task" placeholder="Enter a Task" required />
+        <!--Ensures that an empty task is not submitted-->
       </div>
 
       <div class="category-field">
@@ -69,9 +77,14 @@
     </form>
 
     <hr />
-    <!-- Following Displays all tasks-->
+    <!-- Following Displays all tasks. If statement in the following div element is assigning dynamic selectors that allows to style the complete or incomplete status. In this case complete tasks are green, while incomplete are red. -->
     {% for todo in todo_list %}
-    <div class="todo-table" id="category-specific">
+    <div
+      class="todo-table {% if todo.complete %}complete{% else %}incomplete{% endif %}"
+      id="category-specific"
+    >
+      >
+
       <p>
         {{ todo.id }} : {{ todo.task }} > {{ 'Complete' if todo.complete else
         'Incomplete'}} : Task submitted on {{

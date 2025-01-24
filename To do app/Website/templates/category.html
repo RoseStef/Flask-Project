@@ -38,7 +38,9 @@
 
     <!-- For loop to display tasks in the selected category-->
     {% for todo in todo_list %}
-    <div class="todo-table">
+    <div
+      class="todo-table {% if todo.complete %}complete{% else %}incomplete{% endif %}"
+    >
       <p>
         {{todo.id}} : {{todo.task}} : {{'Complete' if todo.complete else
         'Incomplete'}} : Task submitted on

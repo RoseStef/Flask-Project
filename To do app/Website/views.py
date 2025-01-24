@@ -6,16 +6,33 @@ my_view = Blueprint("my_view", __name__)
 @my_view.route("/")
 def home():
     todo_list = Todo.query.all()
-    return render_template("index.html", todo_list = todo_list)
+    message = request.args.get('message', None)
+    message_type = request.args.get('message_type', None)
+    return render_template("index.html", todo_list = todo_list, message=message, message_type=message_type)
 
 @my_view.route("/add", methods = ["POST"])
 def add():
-    task = request.form.get("task")
-    category = request.form.get("category") #Gets task categories
-    new_todo = Todo(task=task, category = category)
-    db.session.add(new_todo)
-    db.session.commit()
-    return redirect(url_for("my_view.home")) 
+    try:
+        task = request.form.get("task")
+        category = request.form.get("category") #Gets task categories
+        
+        #Next four lines validate that the task input is not empty
+        if not task.strip(): #Removes the surrounding whitespace
+            message = "Task cannot be empty! Please enter a valid task!" #Shows up if task input is empty
+            message_type = "error"
+            return redirect(url_for("my_view.home", message = message, message_type = message_type))
+        
+        #Proceeds if task is a valid input
+        new_todo = Todo(task=task, category = category)
+        db.session.add(new_todo)
+        db.session.commit()
+        message = "The task has been added successfully!" #This error_handling message could ensure user that the task has been added to the list of existing tasks. 
+        message_type = "success" #A parameter that differentiates between messages for try/except
+        return redirect(url_for("my_view.home", message=message, message_type=message_type)) 
+    except:
+        message = "Database does not allow to input a duplicate task! Please check your tasks or input another task!"
+        message_type = "error"
+        return redirect(url_for("my_view.home", message=message, message_type=message_type))
 
 @my_view.route("/update/<todo_id>", methods = ["POST"])
 def update(todo_id):

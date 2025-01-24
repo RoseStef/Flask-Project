@@ -111,6 +111,16 @@
   color: brown;
 }
 
+/*Style the complete or incomplete status*/
+
+.complete {
+  color: green;
+}
+
+.incomplete {
+  color: red;
+}
+
 .to-delete button {
   height: 35px;
   width: 100px;
@@ -139,4 +149,16 @@
 .to-edit button:hover {
   background-color: goldenrod;
   color: brown;
+}
+
+/*Style the error handling message*/
+#error-handling {
+  font-family: monospace;
+  color: red;
+}
+
+/*Style the success message*/
+#success-message {
+  font-family: monospace;
+  color: green;
 }
