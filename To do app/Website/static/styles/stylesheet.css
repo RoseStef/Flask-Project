@@ -111,10 +111,11 @@
   color: brown;
 }
 
-/*Style the complete or incomplete status*/
+/*Style the complete or incomplete tasks*/
 
 .complete {
   color: green;
+  text-decoration: line-through;
 }
 
 .incomplete {
